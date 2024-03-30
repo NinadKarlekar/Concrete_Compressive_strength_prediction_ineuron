@@ -21,12 +21,11 @@ try:
         model = pickle.load(f)
 
     # User interface with CSS styling
-    st.set_page_config(page_title="My Model App", layout="wide")  # Adjust layout as needed
+    st.set_page_config(page_title="Concrete Compressive Strength", layout="wide")  # Adjust layout as needed
 
     # Define CSS styles (create a separate CSS file if desired)
     body_style = """
     body {
-        background-image: url("img\c1.png"");  # Replace with your image path
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
@@ -37,14 +36,19 @@ try:
     st.markdown(f"<style>{body_style}</style>", unsafe_allow_html=True)
 
     # Title and input fields
-    st.title("My Model App")
+    st.title("Concrete Compressive Strength")
 
-    cement = st.number_input("Enter cement:")
-    blast_furnace_slag = st.number_input("Enter blast_furnace_slag:")
-    fly_ash = st.number_input("Enter fly_ash:")
-    water = st.number_input("Enter water:")
-    superplasticizer = st.number_input("Enter superplasticizer:")
-    age = st.number_input("Enter age:")
+    cement = st.number_input("Enter the amount of Cement (component 1) in kg per m³ mixture:")
+    blast_furnace_slag = st.number_input(
+        "Enter the amount of Blast Furnace Slag (component 2) in kg per m³ mixture:"
+    )
+    fly_ash = st.number_input("Enter the amount of Fly Ash (component 3) in kg per m³ mixture:")
+    water = st.number_input("Enter the amount of Water (component 4) in kg per m³ mixture:")
+    superplasticizer = st.number_input(
+        "Enter the amount of Superplasticizer (component 5) in kg per m³ mixture:"
+    )
+    age = st.number_input("Enter the Age of the concrete (days, 1-365):")
+
 
     logging.info(
         f"User input: cement={cement}, blast_furnace_slag={blast_furnace_slag}, fly_ash={fly_ash}, water={water}, superplasticizer={superplasticizer}, age={age}"
@@ -60,7 +64,11 @@ try:
     logging.info(f"Predicted outcome for data {data}: {prediction}")
 
     with st.container():
-        st.write("Predicted outcome:", prediction)
+        st.write(
+            "Predicted compressive strength of the concrete mixture:",
+            f"{prediction:.2f} MPa",  # Format prediction with 2 decimal places
+        )
+
 
     logging.info('-' * 80)  # Creates a line of 80 dashes
 
