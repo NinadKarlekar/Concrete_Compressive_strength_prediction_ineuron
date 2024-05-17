@@ -2,6 +2,7 @@ import streamlit as st
 import pickle
 import logging
 
+
 try:
     # Configure logging (optional, for flexibility and control)
     logging.basicConfig(
@@ -72,5 +73,14 @@ try:
 
     logging.info('-' * 80)  # Creates a line of 80 dashes
 
+except FileNotFoundError as fnf_error:
+    logging.error(f"File not found: {fnf_error}")
+    st.error(f"File not found: {fnf_error}")
 except Exception as e:
     logging.error(f"An error occurred: {e}")
+    st.error(f"An error occurred: {e}")
+
+
+# pip install xgboost
+# pip install streamlit
+# streamlit run streamlit.py
